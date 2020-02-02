@@ -11,14 +11,11 @@ class App {
   static init() {
     this.element = document.querySelector( '.app' );
     this.content = document.querySelector( '.content-wrapper' );
-
     this.initPages();
     this.initForms();
     this.initWidgets();
     this.initModals();
-
     Sidebar.init();
-
     this.initUser();
   }
 
@@ -30,7 +27,7 @@ class App {
    * Если пользователь не авторизован, необходимо установить
    * состояние 'init'
    * */
-  static initUser() {
+  static initUser() {    
     User.fetch(User.current(), () =>
       this.setState( User.current() ? 'user-logged' : 'init' )
     );
@@ -147,12 +144,14 @@ class App {
     if (this.state) {
       this.element.classList.remove( `app_${this.state}` );
     }
+
     this.element.classList.add( `app_${state}` );
     this.state = state;
 
     if ( state === 'user-logged' ) {
       this.update();
     }
+    
     if ( state === 'init' ) {
       this.clear();
     }
